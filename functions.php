@@ -4,41 +4,49 @@
  */
 
 
-/**
- * Register and enqueue the requred CSS and Javascript.
- */
-function custom_styles_scripts() {
-
-    $theme_uri = get_stylesheet_directory_uri();
-
-    // CSS for the parent theme.
-    wp_register_style( 'parent-css', get_template_directory_uri() . '/style.css' );
-    wp_enqueue_style( 'parent-css' );
-    
-    // Our style.css file, which inherits the parent theme's CSS.
-    wp_register_style(
-        'child-css',
-        $theme_uri . '/css/custom.css',
-        array( 'parent-css' )
-    );
-    wp_enqueue_style( 'child-css' );
-    
-    // Scripts that will appear in the header.
-    // wp_register_script( 'typekit', 'http://use.typekit.net/fah7euc.js' );
-    // wp_enqueue_script( 'typekit' );
-    
-    // Scripts that will appear in the footer.
-    wp_register_script(
-        'custom-js',
-        $theme_uri . '/js/custom.js',
-        array( 'jquery' ),
-        false,
-        true
-    );
-	wp_enqueue_script( 'custom-js' );
-	
-	// Make some PHP data available to our custom Javascript file.
-	$data = array( 'url' => __( $theme_uri ) );
-	wp_localize_script('custom-js', 'SiteData', $data);
+// Enqueue our custom CSS and Javascript.
+function ad_styles_scripts() {
+	$theme_uri = get_stylesheet_directory_uri();
+	wp_enqueue_style( 'ad-style', $theme_uri . '/css/custom.css' );
+	wp_enqueue_script( 'ad-js', $theme_uri . '/js/custom.js', array( 'jquery' ) );
 }
-add_action( 'wp_enqueue_scripts', 'custom_styles_scripts' );
+add_action( 'wp_enqueue_scripts', 'ad_styles_scripts', 99 );
+
+
+// Add a custom footer to the admin menu.
+function ad_custom_admin_footer() {
+	echo '<span id="footer-thankyou">Theme developed by <a href="http://artsdigital.co" ' 
+		. 'target="_blank">ArtsDigital</a></span>.';
+}
+add_filter( 'admin_footer_text', 'ad_custom_admin_footer' );
+
+
+// Hide developer-only and unused admin pages.
+function ad_remove_menu_items() {
+
+	// Require an @artsdigital.co email address.
+	if( strpos( wp_get_current_user()->user_email, '@artsdigital.co' ) === false):
+	
+		// Plugin menus
+		remove_menu_page( 'edit.php?post_type=acf-field-group' ); // ACF
+		remove_menu_page( 'cptui_main_menu' ); // CPT UI
+		
+		// WP settings
+		define( 'DISALLOW_FILE_EDIT', true ); // remove theme editor
+		remove_submenu_page( 'options-general.php', 'options-media.php' );
+		remove_submenu_page( 'options-general.php', 'options-permalink.php' );
+	endif;
+}
+add_action( 'admin_menu', 'ad_remove_menu_items' );
+
+
+	       /*/ DEBUGGING BLOCK /////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+       //                                                                             //
+           $var = 'foo';
+           echo "<pre style='font:14px Courier; padding:10px; border-radius:10px;";
+           echo "color:#0E0; -webkit-box-shadow: 0 0 12px #000; margin:20px 0;";
+           echo "background:rgba(0,0,0,.9);'>"; var_dump($var); echo "</pre>";
+  //                                                                             //
+ /////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////*/
