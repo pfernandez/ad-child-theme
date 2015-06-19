@@ -7,8 +7,8 @@
 // Enqueue our custom CSS and Javascript.
 function ad_styles_scripts() {
 	$theme_uri = get_stylesheet_directory_uri();
-	wp_enqueue_style( 'ad-style', $theme_uri . '/css/custom.css' );
-	wp_enqueue_script( 'ad-js', $theme_uri . '/js/custom.js', array( 'jquery' ) );
+	wp_enqueue_style( 'ad-style', $theme_uri . '/dist/css/styles.d41d8cd9.min.css' );
+	wp_enqueue_script( 'ad-js', $theme_uri . '/dist/js/scripts.d9a3aad4.min.js', array( 'jquery' ) );
 }
 add_action( 'wp_enqueue_scripts', 'ad_styles_scripts', 99 );
 

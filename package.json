@@ -1,0 +1,25 @@
+{
+  "name": "ad-child-theme",
+  "version": "0.4.0",
+  "description": "The standard WordPress child theme used by ArtsDigital.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pfernandez/ad-child-theme.git"
+  },
+  "author": "Paul Fernandez",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/pfernandez/ad-child-theme/issues"
+  },
+  "homepage": "https://github.com/pfernandez/ad-child-theme#readme",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-autoprefixer": "^3.0.3",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-wp-assets": "^0.2.6"
+  }
+}

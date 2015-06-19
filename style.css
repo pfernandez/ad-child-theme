@@ -4,11 +4,11 @@ Theme URI:      https://github.com/pfernandez/ad-child-theme
 Description:    This is a custom theme created especially for you by your friends at ArtsDigital. Don't be a stranger.
 Author:         ArtsDigital.co
 Author URI:     http://artsdigital.co
-Template:       twentyfifteen
-Version:        0.3.0
+Template:       wordpress-bootstrap
+Version:        0.4.0
 */
 
 
 /**
- * How about we just leave this file alone, eh? Put your styles in css/custom.css.
+ * Attention developers: Put your styles in less/styles.less and compile with Grunt.
  */
