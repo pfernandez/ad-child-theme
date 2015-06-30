@@ -1,8 +1,10 @@
 'use strict';
+
+var basePath = '/wp-content' + __dirname.split('wp-content')[1];
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
-  	pkg: grunt.file.readJSON('package.json'),
     jshint: {
       options: {
         jshintrc: '.jshintrc'
@@ -14,15 +16,17 @@ module.exports = function(grunt) {
     less: {
       dist: {
         files: {
-          'dist/css/styles.min.css': ['less/styles.less']
+          'dist/css/styles.min.css': [
+          	// List additional css/less files here.
+          	'less/styles.less'
+          ]
         },
         options: {
           compress: true,
-          // LESS source map
-          // To enable, set sourceMap to true and update sourceMapRootpath based on your install.
+          rootpath: basePath + '/less',
           sourceMap: true,
           sourceMapFilename: 'dist/css/styles.css.map',
-          sourceMapRootpath: '/wp-content/themes/<%= pkg.name %>/' // Defined in package.json
+          sourceMapRootpath: basePath
         }
       }
     },
@@ -36,7 +40,10 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         files: {
-          'dist/js/scripts.min.js': ['js/*.js']
+          'dist/js/scripts.min.js': [
+          	// List additional js files/libraries here.
+          	'js/scripts.js'
+          ]
         },
         options: {
           // JS source map: to enable, uncomment the lines below and update sourceMappingURL
@@ -55,7 +62,7 @@ module.exports = function(grunt) {
     },
     watch: {
       less: {
-        files: ['library/less/*.less'],
+        files: ['less/styles.less'],
         tasks: ['less', 'version']
       },
       js: {
@@ -69,8 +76,8 @@ module.exports = function(grunt) {
           livereload: true
         },
         files: [
-          'library/dist/css/styles.min.css',
-          'library/js/*',
+          'dist/css/styles.min.css',
+          'dist/js/scripts.min.js',
           'style.css',
           '*.php'
         ]
